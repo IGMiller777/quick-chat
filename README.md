@@ -128,6 +128,35 @@ Utility-first CSS framework for rapid UI development.
 
 Tailwind classes are available throughout the project. Import Tailwind utilities in your components as needed.
 
+### Angular Material
+Material Design components for Angular applications.
+
+This project includes Angular Material 20 with:
+- Material Design components (buttons, cards, forms, etc.)
+- Material Design icons
+- Responsive design patterns
+- Theme support (light/dark themes)
+
+**Example Material components available:**
+- MatButtonModule - Various button styles
+- MatCardModule - Card layouts
+- MatIconModule - Material icons
+- MatInputModule - Form inputs
+- MatFormFieldModule - Form fields
+- MatToolbarModule - Navigation toolbars
+- MatSidenavModule - Side navigation
+- MatListModule - Lists and menus
+
+**Using Material components:**
+```typescript
+import { MatButtonModule } from '@angular/material/button';
+
+@Component({
+  imports: [MatButtonModule],
+  template: '<button mat-raised-button color="primary">Click me</button>'
+})
+```
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

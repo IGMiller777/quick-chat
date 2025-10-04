@@ -78,3 +78,26 @@ This project uses Husky for Git hooks:
 - **Stylelint**: CSS/SCSS linting
 - **Commitlint**: Commit message validation
 - **Tailwind CSS**: Utility-first CSS framework
+- **Angular Material**: Material Design components
+
+## UI Framework Integration
+
+This project uses both **Tailwind CSS** and **Angular Material** together:
+
+### Tailwind CSS
+- Utility-first CSS framework
+- Rapid prototyping and styling
+- Responsive design utilities
+- Custom component styling
+
+### Angular Material
+- Material Design components
+- Consistent UI patterns
+- Accessibility features
+- Theme system
+
+### Best Practices
+1. Use Angular Material components for UI patterns (buttons, forms, navigation)
+2. Use Tailwind utilities for custom styling and layouts
+3. Combine both frameworks for optimal developer experience
+4. Follow Material Design guidelines for component usage
