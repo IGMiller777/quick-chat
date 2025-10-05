@@ -2,10 +2,7 @@
   @if (messages().length > 0) {
     <div class="messages">
       @for (message of messages(); track message.id) {
-        <div
-          class="message-item"
-          [class.own-message]="message.userId === currentUserId()"
-        >
+        <div class="message-item" [class.own-message]="message.userId === currentUserId()">
           <div class="message-content">
             @if (message.userId !== currentUserId()) {
               <div class="message-header">
@@ -33,7 +30,7 @@
           stroke="currentColor"
           stroke-width="1.5"
         >
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
         </svg>
       </div>
       <h3 class="empty-title">Start a conversation</h3>
@@ -49,7 +46,11 @@
         <span></span>
       </div>
 
-      <span class="typing-text">{{ typingIndicatorText() }}</span>
+      @if (typingIndicatorText()) {
+        <div class="typing-indicator">
+          <span class="typing-text">{{ typingIndicatorText() }}</span>
+        </div>
+      }
     </div>
   }
 </div>

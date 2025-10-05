@@ -22,6 +22,7 @@ export class UserPanelComponent {
 
   public readonly userStatus = computed(() => {
     const { isTyping } = this.user();
+    console.log(this.user());
     return isTyping ? 'typing...' : 'online';
   });
 

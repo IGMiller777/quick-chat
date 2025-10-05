@@ -1,4 +1,4 @@
-import { computed, effect, Injectable, OnDestroy, signal } from '@angular/core';
+import { computed, Injectable, OnDestroy, signal } from '@angular/core';
 import {
   CHANNEL_NAME,
   TAB_COUNTER_KEY,
@@ -143,21 +143,15 @@ export class ChatService implements OnDestroy {
   }
 
   private setupEffects(): void {
-    effect(() => {
-      return () => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('beforeunload', () => {
+        this.cleanupTabNumber();
         if (this.broadcastChannel) {
           this.broadcastMessage({
             type: 'user_leave',
             data: this.currentUser,
           });
-          this.broadcastChannel.close();
         }
-      };
-    });
-
-    if (typeof window !== 'undefined') {
-      window.addEventListener('beforeunload', () => {
-        this.cleanupTabNumber();
       });
     }
   }

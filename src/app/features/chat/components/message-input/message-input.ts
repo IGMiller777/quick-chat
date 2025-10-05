@@ -107,4 +107,23 @@ export class MessageInputComponent {
       this._typingTimeout = undefined;
     }
   }
+
+  // Public method to disable/enable input
+  setDisabled(disabled: boolean): void {
+    this.isDisabled.set(disabled);
+  }
+
+  // Public method to clear input
+  clear(): void {
+    this.messageText.set('');
+    this.stopTyping();
+    this.adjustTextareaHeight();
+  }
+
+  // Public method to focus input
+  focus(): void {
+    setTimeout(() => {
+      this.textarea?.nativeElement.focus();
+    }, 0);
+  }
 }

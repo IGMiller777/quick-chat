@@ -1,16 +1,5 @@
 # QuickChat
 
-A modern cross-tab chat application built with Angular 20, featuring real-time messaging between browser tabs using BroadcastChannel API.
-
-## Features
-
-- 🔄 **Cross-tab Communication**: Chat between multiple browser tabs of the same host
-- ⌨️ **Typing Indicators**: See when other tabs are typing messages
-- 📱 **Responsive Design**: Optimized for both desktop and mobile devices
-- 🎨 **Modern UI**: Built with Angular Material and Tailwind CSS
-- ⚡ **Real-time Updates**: Instant message synchronization across tabs
-- 🔧 **Angular 20**: Uses latest Angular features including signals and standalone components
-
 ## Installation
 
 This project uses `npm ci` for faster, reliable, and reproducible builds.
@@ -174,51 +163,3 @@ This project includes Angular Material 20 with:
 - MatToolbarModule - Navigation toolbars
 - MatSidenavModule - Side navigation
 - MatListModule - Lists and menus
-
-**Using Material components:**
-```typescript
-import { MatButtonModule } from '@angular/material/button';
-
-@Component({
-  imports: [MatButtonModule],
-  template: '<button mat-raised-button color="primary">Click me</button>'
-})
-```
-
-## Technical Architecture
-
-### Core Technologies
-- **Angular 20**: Latest Angular with signals, standalone components, and modern features
-- **TypeScript**: Strong typing and modern JavaScript features
-- **BroadcastChannel API**: Cross-tab communication without external dependencies
-- **Angular Material**: Material Design components
-- **Tailwind CSS**: Utility-first CSS framework
-
-### Key Features Implementation
-- **Cross-tab Communication**: Uses `BroadcastChannel` API for real-time messaging between browser tabs
-- **Sequential Tab Numbering**: Each tab gets a unique sequential number (Вкладка №1, Вкладка №2, etc.) based on opening order
-- **Persistent Tab Identity**: Uses localStorage for global counter and sessionStorage for tab-specific data
-- **Reactive State Management**: Angular signals for efficient state updates and computed values
-- **Responsive Design**: Mobile-first approach with adaptive layouts
-- **Typing Indicators**: Real-time typing detection with automatic timeout
-- **Modern Angular Patterns**: Standalone components, signal-based reactivity, and dependency injection
-
-### Project Structure
-```
-src/
-├── app/
-│   ├── core/
-│   │   └── services/
-│   │       └── chat.service.ts          # Core chat functionality
-│   ├── features/
-│   │   └── chat/
-│   │       └── components/              # Chat-specific components
-│   ├── shared/
-│   │   └── models/
-│   │       └── chat.models.ts          # TypeScript interfaces
-│   └── ...
-```
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
