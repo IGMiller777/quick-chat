@@ -1,4 +1,4 @@
-import { computed, Injectable, OnDestroy, signal } from '@angular/core';
+import { computed, inject, Injectable, NgZone, OnDestroy, signal } from '@angular/core';
 import {
   CHANNEL_NAME,
   TAB_COUNTER_KEY,
@@ -18,6 +18,8 @@ export class ChatService implements OnDestroy {
   private readonly TAB_COUNTER_KEY = TAB_COUNTER_KEY;
   private readonly TAB_NUMBER_KEY = TAB_NUMBER_KEY;
 
+  private readonly _ngZone = inject(NgZone);
+
   private _messages = signal<ChatMessage[]>([]);
   private _users = signal<User[]>([]);
   private _typingUsers = signal<string[]>([]);
@@ -28,6 +30,7 @@ export class ChatService implements OnDestroy {
   public readonly typingUsers = computed(() => this._typingUsers());
   public readonly typingIndicatorText = computed(() => {
     const typing = this._typingUsers();
+
     if (typing.length === 0) return '';
     if (typing.length === 1) return `${typing[0]} is typing...`;
     if (typing.length === 2) return `${typing.join(' and ')} are typing...`;
@@ -222,9 +225,13 @@ export class ChatService implements OnDestroy {
       return;
     }
 
-    this._typingUsers.update(typingUsers => {
-      const filtered = typingUsers.filter(user => user !== typingEvent.userName);
-      return typingEvent.isTyping ? [...filtered, typingEvent.userName] : filtered;
+    this._ngZone.run(() => {
+      setTimeout(() => {
+        this._typingUsers.update(typingUsers => {
+          const filtered = typingUsers.filter(user => user !== typingEvent.userName);
+          return typingEvent.isTyping ? [...filtered, typingEvent.userName] : filtered;
+        });
+      }, 2000);
     });
   }
 
