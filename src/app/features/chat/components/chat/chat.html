@@ -1,0 +1,85 @@
+<div class="chat-container" [class.mobile]="isMobile()">
+  <mat-toolbar color="primary" class="mobile-header" *ngIf="isMobile()">
+    <span class="toolbar-title">Quick Chat</span>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="clearMessages()">
+        <mat-icon>clear_all</mat-icon>
+        <span>Clear Messages</span>
+      </button>
+      <button mat-menu-item (click)="refreshChat()">
+        <mat-icon>refresh</mat-icon>
+        <span>Refresh</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <div class="chat-content">
+    @if (!isMobile()) {
+      <aside class="user-sidebar">
+        <app-user-panel
+          [user]="currentUser()"
+          [onlineUsers]="onlineUsers()"
+          [currentUserId]="currentUserId()"
+          [isMobile]="false"
+        />
+      </aside>
+    }
+
+
+    <main class="chat-main">
+      @if (!isMobile()) {
+        <div class="desktop-header">
+          <div class="header-info">
+            <h1 class="chat-title">Quick Chat</h1>
+            <p class="chat-subtitle">
+              {{ onlineUsersCount() }} {{ onlineUsersCount() === 1 ? 'user' : 'users' }} online
+            </p>
+          </div>
+          <div class="header-actions">
+            <button mat-icon-button [matMenuTriggerFor]="desktopMenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #desktopMenu="matMenu">
+              <button mat-menu-item (click)="clearMessages()">
+                <mat-icon>clear_all</mat-icon>
+                <span>Clear Messages</span>
+              </button>
+              <button mat-menu-item (click)="refreshChat()">
+                <mat-icon>refresh</mat-icon>
+                <span>Refresh</span>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      }
+
+      @if (isMobile()) {
+        <app-user-panel
+          [user]="currentUser()"
+          [onlineUsers]="onlineUsers()"
+          [currentUserId]="currentUserId()"
+          [isMobile]="true"
+        />
+      }
+
+      <app-message-list
+        [messages]="messages()"
+        [currentUserId]="currentUserId()"
+        [typingUsers]="typingUsers()"
+        [typingIndicatorText]="typingIndicatorText()"
+      />
+
+      <app-message-input
+        (messageSent)="onMessageSent($event)"
+        (typingChanged)="onTypingChanged($event)"
+      />
+    </main>
+  </div>
+</div>

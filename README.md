@@ -1,6 +1,15 @@
 # QuickChat
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.2.
+A modern cross-tab chat application built with Angular 20, featuring real-time messaging between browser tabs using BroadcastChannel API.
+
+## Features
+
+- 🔄 **Cross-tab Communication**: Chat between multiple browser tabs of the same host
+- ⌨️ **Typing Indicators**: See when other tabs are typing messages
+- 📱 **Responsive Design**: Optimized for both desktop and mobile devices
+- 🎨 **Modern UI**: Built with Angular Material and Tailwind CSS
+- ⚡ **Real-time Updates**: Instant message synchronization across tabs
+- 🔧 **Angular 20**: Uses latest Angular features including signals and standalone components
 
 ## Installation
 
@@ -16,6 +25,25 @@ npm run install:ci
 # For development, you can also use
 npm install
 ```
+
+## How to Use
+
+1. **Start the application**:
+   ```bash
+   npm start
+   # or
+   ng serve
+   ```
+
+2. **Open multiple tabs**: Navigate to `http://localhost:4200/` in multiple browser tabs
+
+3. **Start chatting**: 
+   - Each tab will be assigned a unique sequential name (e.g., "Вкладка №1", "Вкладка №2")
+   - Tab numbers are assigned based on the order of opening tabs
+   - Type messages in any tab to see them appear in all tabs
+   - See typing indicators when other tabs are composing messages
+
+4. **Mobile experience**: On mobile devices, the user panel moves to the top for better usability
 
 ## Development server
 
@@ -155,6 +183,40 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [MatButtonModule],
   template: '<button mat-raised-button color="primary">Click me</button>'
 })
+```
+
+## Technical Architecture
+
+### Core Technologies
+- **Angular 20**: Latest Angular with signals, standalone components, and modern features
+- **TypeScript**: Strong typing and modern JavaScript features
+- **BroadcastChannel API**: Cross-tab communication without external dependencies
+- **Angular Material**: Material Design components
+- **Tailwind CSS**: Utility-first CSS framework
+
+### Key Features Implementation
+- **Cross-tab Communication**: Uses `BroadcastChannel` API for real-time messaging between browser tabs
+- **Sequential Tab Numbering**: Each tab gets a unique sequential number (Вкладка №1, Вкладка №2, etc.) based on opening order
+- **Persistent Tab Identity**: Uses localStorage for global counter and sessionStorage for tab-specific data
+- **Reactive State Management**: Angular signals for efficient state updates and computed values
+- **Responsive Design**: Mobile-first approach with adaptive layouts
+- **Typing Indicators**: Real-time typing detection with automatic timeout
+- **Modern Angular Patterns**: Standalone components, signal-based reactivity, and dependency injection
+
+### Project Structure
+```
+src/
+├── app/
+│   ├── core/
+│   │   └── services/
+│   │       └── chat.service.ts          # Core chat functionality
+│   ├── features/
+│   │   └── chat/
+│   │       └── components/              # Chat-specific components
+│   ├── shared/
+│   │   └── models/
+│   │       └── chat.models.ts          # TypeScript interfaces
+│   └── ...
 ```
 
 ## Additional Resources

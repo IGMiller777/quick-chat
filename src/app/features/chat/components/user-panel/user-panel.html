@@ -1,0 +1,47 @@
+<div class="user-panel" [class.mobile]="isMobile()">
+  <div class="user-info">
+    <div class="avatar">
+      <div class="avatar-circle">
+        <span class="avatar-text">{{ userInitials() }}</span>
+      </div>
+    </div>
+    <div class="user-details">
+      <h3 class="user-name">{{ user().name }}</h3>
+      <p class="user-status" [class.online]="user().isTyping">
+        {{ userStatus() }}
+      </p>
+    </div>
+  </div>
+
+  @if (!isMobile()) {
+    <div class="online-users">
+      <h4 class="section-title">Online Users</h4>
+
+      <div class="users-list">
+        @for (onlineUser of onlineUsers(); track onlineUser.id) {
+          <div
+            class="user-item"
+            [class.current-user]="onlineUser.id === currentUserId()"
+          >
+            <div class="user-avatar">
+              <div class="avatar-circle small">
+                <span class="avatar-text">{{ getUserInitials(onlineUser.name) }}</span>
+              </div>
+
+              @if (onlineUser.id !== currentUserId()) {
+                <div class="online-indicator"></div>
+
+              }
+            </div>
+
+            <span class="user-name-text">{{ onlineUser.name }}</span>
+
+            @if (onlineUser.isTyping) {
+              <span class="typing-indicator">typing...</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

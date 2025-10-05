@@ -1,0 +1,128 @@
+.chat-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+}
+
+.chat-container.mobile {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.mobile-header {
+  flex-shrink: 0;
+  z-index: 1000;
+}
+
+.toolbar-title {
+  font-weight: 600;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.chat-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.user-sidebar {
+  width: 320px;
+  flex-shrink: 0;
+  padding: 20px;
+  background: #f8fafc;
+  border-right: 1px solid #e5e7eb;
+  overflow-y: auto;
+}
+
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.desktop-header {
+  flex-shrink: 0;
+  padding: 20px 24px 16px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-info h1 {
+  margin: 0 0 4px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.header-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile Styles */
+.chat-container.mobile .chat-content {
+  flex-direction: column;
+}
+
+.chat-container.mobile .chat-main {
+  padding: 16px;
+  gap: 16px;
+}
+
+/* Responsive adjustments */
+@media (width <= 1024px) {
+  .user-sidebar {
+    width: 280px;
+  }
+}
+
+@media (width <= 768px) {
+  .desktop-header {
+    display: none;
+  }
+
+  .chat-container.mobile .chat-main {
+    padding: 0;
+    gap: 0;
+  }
+
+  .user-sidebar {
+    display: none;
+  }
+}
+
+/* Scrollbar styling */
+.user-sidebar::-webkit-scrollbar,
+.chat-main::-webkit-scrollbar {
+  width: 6px;
+}
+
+.user-sidebar::-webkit-scrollbar-track,
+.chat-main::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.user-sidebar::-webkit-scrollbar-thumb,
+.chat-main::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.user-sidebar::-webkit-scrollbar-thumb:hover,
+.chat-main::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
