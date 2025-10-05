@@ -5,10 +5,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { ChatService } from '../../../../core/services/chat.service';
+import { ChatService } from '@core/services/chat.service';
 import { MessageInputComponent } from '../message-input/message-input';
 import { MessageListComponent } from '../message-list/message-list';
 import { UserPanelComponent } from '../user-panel/user-panel';
+import { WINDOW } from '@shared/tokens';
 
 @Component({
   selector: 'app-chat',
@@ -28,6 +29,7 @@ import { UserPanelComponent } from '../user-panel/user-panel';
 })
 export class Chat implements OnInit, OnDestroy {
   private readonly _chatService = inject(ChatService);
+  private readonly _window = inject(WINDOW);
 
   private _resizeObserver?: ResizeObserver;
 
@@ -89,14 +91,14 @@ export class Chat implements OnInit, OnDestroy {
       this.updateMobileState();
     });
 
-    if (typeof window !== 'undefined') {
+    if (this._window) {
       this._resizeObserver.observe(document.body);
     }
   }
 
   private updateMobileState(): void {
-    if (typeof window !== 'undefined') {
-      const isMobile = window.innerWidth <= 768;
+    if (this._window) {
+      const isMobile = this._window.innerWidth <= 768;
       this._isMobileSignal.set(isMobile);
     }
   }

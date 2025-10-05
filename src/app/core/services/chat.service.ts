@@ -5,8 +5,9 @@ import {
   TAB_ID_KEY,
   TAB_NUMBER_KEY,
   USER_ID_KEY,
-} from '../../shared/constants';
-import { ChatEvent, ChatMessage, TypingEvent, User } from '../../shared/models';
+} from '@shared/constants';
+import { ChatEvent, ChatMessage, TypingEvent, User } from '@shared/models';
+import { LOCAL_STORAGE, SESSION_STORAGE, WINDOW as WINDOW_TOKEN } from '@shared/tokens';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,9 @@ export class ChatService implements OnDestroy {
   private readonly TAB_NUMBER_KEY = TAB_NUMBER_KEY;
 
   private readonly _ngZone = inject(NgZone);
+  private readonly _window = inject(WINDOW_TOKEN);
+  private readonly _localStorage = inject(LOCAL_STORAGE);
+  private readonly _sessionStorage = inject(SESSION_STORAGE);
 
   private _messages = signal<ChatMessage[]>([]);
   private _users = signal<User[]>([]);
@@ -101,25 +105,32 @@ export class ChatService implements OnDestroy {
   }
 
   private initializeUser(): void {
-    let tabId = sessionStorage.getItem(this.TAB_ID_KEY);
-    let userId = sessionStorage.getItem(this.USER_ID_KEY);
-    let existingTabNumber = sessionStorage.getItem(this.TAB_NUMBER_KEY);
+    const session = this._sessionStorage;
+    let tabId = session?.getItem(this.TAB_ID_KEY) ?? undefined;
+    let userId = session?.getItem(this.USER_ID_KEY) ?? undefined;
+    let existingTabNumber = session?.getItem(this.TAB_NUMBER_KEY) ?? undefined;
 
     if (existingTabNumber) {
       this.tabNumber = parseInt(existingTabNumber, 10);
     } else {
       this.tabNumber = this.getNextTabNumber();
-      sessionStorage.setItem(this.TAB_NUMBER_KEY, this.tabNumber.toString());
+      try {
+        session?.setItem(this.TAB_NUMBER_KEY, this.tabNumber.toString());
+      } catch {}
     }
 
     if (!tabId) {
       tabId = this.generateTabId();
-      sessionStorage.setItem(this.TAB_ID_KEY, tabId);
+      try {
+        session?.setItem(this.TAB_ID_KEY, tabId);
+      } catch {}
     }
 
     if (!userId) {
       userId = this.generateUserId();
-      sessionStorage.setItem(this.USER_ID_KEY, userId);
+      try {
+        session?.setItem(this.USER_ID_KEY, userId);
+      } catch {}
     }
 
     this.currentUser = {
@@ -146,8 +157,8 @@ export class ChatService implements OnDestroy {
   }
 
   private setupEffects(): void {
-    if (typeof window !== 'undefined') {
-      window.addEventListener('beforeunload', () => {
+    if (this._window) {
+      this._window.addEventListener('beforeunload', () => {
         this.cleanupTabNumber();
         if (this.broadcastChannel) {
           this.broadcastMessage({
@@ -169,10 +180,10 @@ export class ChatService implements OnDestroy {
 
   private getNextTabNumber(): number {
     try {
-      const currentCounter = localStorage.getItem(this.TAB_COUNTER_KEY);
+      const currentCounter = this._localStorage?.getItem(this.TAB_COUNTER_KEY) ?? null;
       const nextNumber = currentCounter ? parseInt(currentCounter, 10) + 1 : 1;
 
-      localStorage.setItem(this.TAB_COUNTER_KEY, nextNumber.toString());
+      this._localStorage?.setItem(this.TAB_COUNTER_KEY, nextNumber.toString());
 
       return nextNumber;
     } catch (error) {
@@ -183,7 +194,7 @@ export class ChatService implements OnDestroy {
 
   private cleanupTabNumber(): void {
     try {
-      sessionStorage.removeItem(this.TAB_NUMBER_KEY);
+      this._sessionStorage?.removeItem(this.TAB_NUMBER_KEY);
     } catch (error) {
       console.warn('Failed to cleanup tab number:', error);
     }

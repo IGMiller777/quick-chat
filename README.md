@@ -1,5 +1,13 @@
 # QuickChat
 
+## Tech stack & versions
+
+- **Angular**: `^20.2.0` (core), `20.3.3` (animations), `^20.2.0` (router, common, forms)
+- **Angular Material**: `20.2.7` (Material), `20.2.7` (CDK)
+- **RxJS**: `~7.8.0`
+- **Tailwind CSS**: `3.4.18`
+
+
 ## Installation
 
 This project uses `npm ci` for faster, reliable, and reproducible builds.

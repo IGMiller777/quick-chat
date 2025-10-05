@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
-import { User } from '../../../../shared/models';
+import { User } from '@shared/models';
 
 @Component({
   selector: 'app-user-panel',

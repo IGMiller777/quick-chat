@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewChecked, Component, ElementRef, input, OnInit, ViewChild } from '@angular/core';
-import { ChatMessage } from '../../../../shared/models';
+import { ChatMessage } from '@shared/models';
 
 @Component({
   selector: 'app-message-list',
