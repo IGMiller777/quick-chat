@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { User } from '@shared/models';
 
 @Component({
@@ -8,6 +8,7 @@ import { User } from '@shared/models';
   imports: [CommonModule],
   templateUrl: './user-panel.html',
   styleUrl: './user-panel.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserPanelComponent {
   public readonly user = input.required<User>();

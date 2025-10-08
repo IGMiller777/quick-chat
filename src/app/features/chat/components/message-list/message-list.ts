@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, Component, ElementRef, input, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ChatMessage } from '@shared/models';
 
 @Component({
@@ -8,6 +16,7 @@ import { ChatMessage } from '@shared/models';
   imports: [CommonModule],
   templateUrl: './message-list.html',
   styleUrl: './message-list.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessageListComponent implements OnInit, AfterViewChecked {
   public readonly messages = input.required<ChatMessage[]>();

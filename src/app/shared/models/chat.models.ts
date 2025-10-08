@@ -21,8 +21,8 @@ export interface TypingEvent {
   isTyping: boolean;
   timestamp: Date;
 }
-
-export interface ChatEvent {
-  type: 'message' | 'typing' | 'user_join' | 'user_leave';
-  data: ChatMessage | TypingEvent | User;
-}
+export type ChatEvent =
+  | { type: 'message'; data: ChatMessage }
+  | { type: 'typing'; data: TypingEvent }
+  | { type: 'user_join'; data: User }
+  | { type: 'user_leave'; data: User };

@@ -1,15 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { ChatService } from '@core/services/chat.service';
+import { WINDOW } from '@shared/tokens';
 import { MessageInputComponent } from '../message-input/message-input';
 import { MessageListComponent } from '../message-list/message-list';
 import { UserPanelComponent } from '../user-panel/user-panel';
-import { WINDOW } from '@shared/tokens';
 
 @Component({
   selector: 'app-chat',
@@ -26,6 +35,7 @@ import { WINDOW } from '@shared/tokens';
   ],
   templateUrl: './chat.html',
   styleUrl: './chat.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Chat implements OnInit, OnDestroy {
   private readonly _chatService = inject(ChatService);

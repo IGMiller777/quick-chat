@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, ElementRef, output, signal, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  ElementRef,
+  output,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -8,6 +16,7 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   templateUrl: './message-input.html',
   styleUrl: './message-input.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessageInputComponent {
   private _typingTimeout?: number;
@@ -108,22 +117,13 @@ export class MessageInputComponent {
     }
   }
 
-  // Public method to disable/enable input
   setDisabled(disabled: boolean): void {
     this.isDisabled.set(disabled);
   }
 
-  // Public method to clear input
   clear(): void {
     this.messageText.set('');
     this.stopTyping();
     this.adjustTextareaHeight();
-  }
-
-  // Public method to focus input
-  focus(): void {
-    setTimeout(() => {
-      this.textarea?.nativeElement.focus();
-    }, 0);
   }
 }

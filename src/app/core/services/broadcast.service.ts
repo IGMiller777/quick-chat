@@ -88,6 +88,7 @@ export class BroadcastService implements OnDestroy {
       this.broadcastChannel.close();
     }
     this.cleanupTabNumber();
+    this.destroyEffects();
   }
 
   private initializeUser(): void {
@@ -142,17 +143,26 @@ export class BroadcastService implements OnDestroy {
     });
   }
 
+  private beforeUnloadHandler = () => {
+    this.cleanupTabNumber();
+
+    if (this.broadcastChannel) {
+      this.broadcastMessage({
+        type: 'user_leave',
+        data: this.currentUser,
+      });
+    }
+  };
+
   private setupEffects(): void {
     if (this._window) {
-      this._window.addEventListener('beforeunload', () => {
-        this.cleanupTabNumber();
-        if (this.broadcastChannel) {
-          this.broadcastMessage({
-            type: 'user_leave',
-            data: this.currentUser,
-          });
-        }
-      });
+      this._window.addEventListener('beforeunload', this.beforeUnloadHandler);
+    }
+  }
+
+  private destroyEffects(): void {
+    if (this._window) {
+      this._window.removeEventListener('beforeunload', this.beforeUnloadHandler);
     }
   }
 
