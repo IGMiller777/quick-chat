@@ -19,10 +19,7 @@
 
       <div class="users-list">
         @for (onlineUser of onlineUsers(); track onlineUser.id) {
-          <div
-            class="user-item"
-            [class.current-user]="onlineUser.id === currentUserId()"
-          >
+          <div class="user-item" [class.current-user]="onlineUser.id === currentUserId()">
             <div class="user-avatar">
               <div class="avatar-circle small">
                 <span class="avatar-text">{{ getUserInitials(onlineUser.name) }}</span>
@@ -30,7 +27,6 @@
 
               @if (onlineUser.id !== currentUserId()) {
                 <div class="online-indicator"></div>
-
               }
             </div>
 

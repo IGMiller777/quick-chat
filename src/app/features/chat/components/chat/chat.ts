@@ -15,8 +15,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { ChatService } from '@core/services/chat.service';
+import { MessageInputComponent } from '@shared/components/message-input/message-input';
 import { WINDOW } from '@shared/tokens';
-import { MessageInputComponent } from '../message-input/message-input';
 import { MessageListComponent } from '../message-list/message-list';
 import { UserPanelComponent } from '../user-panel/user-panel';
 

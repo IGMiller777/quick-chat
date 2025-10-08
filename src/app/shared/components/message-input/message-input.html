@@ -36,15 +36,11 @@
 
   <div class="input-footer">
     @if (messageText().length > 0) {
-      <span class="character-count">
-      {{ messageText().length }}/1000
-    </span>
+      <span class="character-count"> {{ messageText().length }}/1000 </span>
     }
 
     @if (isTyping()) {
-      <span class="typing-hint">
-      Press Enter to send, Shift+Enter for new line
-    </span>
+      <span class="typing-hint"> Press Enter to send, Shift+Enter for new line </span>
     }
   </div>
 </div>

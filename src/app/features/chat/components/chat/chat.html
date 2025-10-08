@@ -13,6 +13,7 @@
         <mat-icon>clear_all</mat-icon>
         <span>Clear Messages</span>
       </button>
+
       <button mat-menu-item (click)="refreshChat()">
         <mat-icon>refresh</mat-icon>
         <span>Refresh</span>
@@ -31,7 +32,6 @@
         />
       </aside>
     }
-
 
     <main class="chat-main">
       @if (!isMobile()) {
